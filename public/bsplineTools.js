@@ -9,6 +9,19 @@ var drawCurve, drawConstruction, drawBezierNodes;
 
 (function () {
 
+    function drawBezier(ctx, r1, r2, r3, r4) {
+        setColors(ctx, 'cyan', 'cyan');
+
+        drawCircle(ctx, r1.x, r1.y, 1);
+        drawCircle(ctx, r2.x, r2.y, 1);
+        drawCircle(ctx, r3.x, r3.y, 1);
+        drawCircle(ctx, r4.x, r4.y, 1);
+
+        drawLine(ctx, r1.x, r1.y, r2.x, r2.y);
+        drawLine(ctx, r2.x, r2.y, r3.x, r3.y);
+        drawLine(ctx, r3.x, r3.y, r4.x, r4.y);
+    }
+
     function drawBspline(ctx, p10, p20, p30, p40, p21, p31, p41, p32, p42, p43) {
         setColors(ctx, 'yellow', 'cyan');
         drawCircle(ctx, p10.x, p10.y, 4);
@@ -117,11 +130,11 @@ var drawCurve, drawConstruction, drawBezierNodes;
         var rknot = curve.knots[curve.knots.length - 3].val();
 
         var samples = 1000;
-        var l = calcDrawBspline(lknot, curve);
+        var l = calcDrawBspline(lknot, curve, undefined);
 
         for (var i = 1; i < samples; i++) {
             var t = lknot + (rknot - lknot) / samples * i;
-            var r = calcDrawBspline(t, curve);
+            var r = calcDrawBspline(t, curve, undefined);
             drawLine(ctx, l.x, l.y, r.x, r.y);
             l = r;
         }
@@ -143,15 +156,7 @@ var drawCurve, drawConstruction, drawBezierNodes;
                 var r3 = calcBezier(t1, t2, t2, curve);
                 var r4 = calcBezier(t2, t2, t2, curve);
 
-                setColors(ctx, 'cyan', 'cyan');
-                drawCircle(ctx, r1.x, r1.y, 1);
-                drawCircle(ctx, r2.x, r2.y, 1);
-                drawCircle(ctx, r3.x, r3.y, 1);
-                drawCircle(ctx, r4.x, r4.y, 1);
-
-                drawLine(ctx, r1.x, r1.y, r2.x, r2.y);
-                drawLine(ctx, r2.x, r2.y, r3.x, r3.y);
-                drawLine(ctx, r3.x, r3.y, r4.x, r4.y);
+                drawBezier(ctx, r1, r2, r3, r4);
 
                 break;
             }
