@@ -74,40 +74,41 @@ var drawCurve, drawConstruction, drawBezierNodes;
             var u5 = curve.knots[k + 4].val();
             var u6 = curve.knots[k + 5].val();
 
-            var p1 = curve.nodes[k + 0].pos();
-            var p2 = curve.nodes[k + 1].pos();
-            var p3 = curve.nodes[k + 2].pos();
-            var p4 = curve.nodes[k + 3].pos();
+            var p10 = curve.nodes[k + 0].pos();
+            var p20 = curve.nodes[k + 1].pos();
+            var p30 = curve.nodes[k + 2].pos();
+            var p40 = curve.nodes[k + 3].pos();
 
-            //setColors(ctx, 'black', 'blue');
-            drawCircle(ctx, p1.x, p1.y, 4);
-            drawCircle(ctx, p2.x, p2.y, 4);
-            drawCircle(ctx, p3.x, p3.y, 4);
-            drawCircle(ctx, p4.x, p4.y, 4);
-            drawLine(ctx, p1.x, p1.y, p2.x, p2.y);
-            drawLine(ctx, p2.x, p2.y, p3.x, p3.y);
-            drawLine(ctx, p3.x, p3.y, p4.x, p4.y);
+            setColors(ctx, 'yellow', 'cyan');
+            drawCircle(ctx, p10.x, p10.y, 4);
+            drawCircle(ctx, p20.x, p20.y, 4);
+            drawCircle(ctx, p30.x, p30.y, 4);
+            drawCircle(ctx, p40.x, p40.y, 4);
+            drawLine(ctx, p10.x, p10.y, p20.x, p20.y);
+            drawLine(ctx, p20.x, p20.y, p30.x, p30.y);
+            drawLine(ctx, p30.x, p30.y, p40.x, p40.y);
 
-            var p23t = p1.multiply((u4 - t) / (u4 - u1)).add(p2.multiply((t - u1) / (u4 - u1)));
-            var p34t = p2.multiply((u5 - t) / (u5 - u2)).add(p3.multiply((t - u2) / (u5 - u2)));
-            var p45t = p3.multiply((u6 - t) / (u6 - u3)).add(p2.multiply((t - u3) / (u6 - u3)));
-            drawLine(ctx, p23t.x, p23t.y, p34t.x, p34t.y);
-            drawLine(ctx, p34t.x, p34t.y, p45t.x, p45t.y);
-            //setColors(ctx, 'red', 'orange');
-            drawCircle(ctx, p23t.x, p23t.y, 3);
-            drawCircle(ctx, p34t.x, p34t.y, 3);
-            drawCircle(ctx, p45t.x, p45t.y, 3);
+            var p21 = p10.multiply((u4 - t) / (u4 - u1)).add(p20.multiply((t - u1) / (u4 - u1)));
+            var p31 = p20.multiply((u5 - t) / (u5 - u2)).add(p30.multiply((t - u2) / (u5 - u2)));
+            var p41 = p30.multiply((u6 - t) / (u6 - u3)).add(p20.multiply((t - u3) / (u6 - u3)));
 
-            var p3tt = (u4 - t) / (u4 - u2) * p23t + (t - u2) / (u4 - u2) * p34t;
-            var p4tt = (u5 - t) / (u5 - u3) * p34t + (t - u3) / (u5 - u3) * p45t;
-            drawLine(ctx, p3tt.x, p3tt.y, p4tt.x, p4tt.y);
-            //setColors(ctx, 'violet', 'pink');
-            drawCircle(ctx, p3tt.x, p3tt.y, 2);
-            drawCircle(ctx, p4tt.x, p4tt.y, 2);
+            setColors(ctx, 'red', 'orange');
+            drawCircle(ctx, p21.x, p21.y, 3);
+            drawCircle(ctx, p31.x, p31.y, 3);
+            drawCircle(ctx, p41.x, p41.y, 3);
+            drawLine(ctx, p21.x, p21.y, p31.x, p31.y);
+            drawLine(ctx, p31.x, p31.y, p41.x, p41.y);
 
-            var pttt = (u4 - t) / (u4 - u3) * p3tt + (t - u3) / (u4 - u3) * p4tt;
-            //setColors(ctx, 'green', 'darkgreen');
-            drawCircle(ctx, pttt.x, pttt.y, 4);
+            var p32 = p21.multiply((u4 - t) / (u4 - u2)).add(p31.multiply((t - u2) / (u4 - u2)));
+            var p42 = p31.multiply((u5 - t) / (u5 - u3)).add(p41.multiply((t - u3) / (u5 - u3)));
+            setColors(ctx, 'violet', 'pink');
+            drawCircle(ctx, p32.x, p32.y, 2);
+            drawCircle(ctx, p42.x, p42.y, 2);
+            drawLine(ctx, p32.x, p32.y, p42.x, p42.y);
+
+            var p43 = p32.multiply((u4 - t) / (u4 - u3)).add(p42.multiply((t - u3) / (u4 - u3)));
+            setColors(ctx, 'green', 'darkgreen');
+            drawCircle(ctx, p43.x, p43.y, 4);
         }
     };
 
