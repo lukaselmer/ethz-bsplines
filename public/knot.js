@@ -18,6 +18,10 @@ Knot.prototype.draw = function (ctx) {
     drawText(ctx, pos.x + KNOTRADIUS + 4, pos.y + KNOTRADIUS, text);
 }
 
+Knot.prototype.val = function () {
+    return this.value;
+}
+
 Knot.prototype.isInside = function (px, py) {
     var pos = timeToRuler(this.value, this.isTimeKnot);
     var dist = (px - pos.x) * (px - pos.x) + (py - pos.y) * (py - pos.y);

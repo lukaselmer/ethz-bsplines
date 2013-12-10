@@ -12,6 +12,10 @@ Node.prototype.setPos = function (_x, _y) {
     this.y = _y;
 }
 
+Node.prototype.pos = function () {
+    return new Point(this.x, this.y);
+}
+
 Node.prototype.draw = function (ctx) {
     drawCircle(ctx, this.x, this.y, NODERADIUS);
 }
