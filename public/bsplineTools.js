@@ -78,6 +78,38 @@ var drawCurve, drawConstruction, drawBezierNodes;
         }
     }
 
+    function calcBezier(t1, t2, t3, curve) {
+        var m = curve.knots.length;
+        var k = 0;
+        for (var l = 3; l < (m - 2); l++) {
+            if (curve.knots[l].val() >= t1) break;
+            k++;
+        }
+
+        var u1 = curve.knots[k + 0].val();
+        var u2 = curve.knots[k + 1].val();
+        var u3 = curve.knots[k + 2].val();
+        var u4 = curve.knots[k + 3].val();
+        var u5 = curve.knots[k + 4].val();
+        var u6 = curve.knots[k + 5].val();
+
+        var p10 = curve.nodes[k + 0].pos();
+        var p20 = curve.nodes[k + 1].pos();
+        var p30 = curve.nodes[k + 2].pos();
+        var p40 = curve.nodes[k + 3].pos();
+
+        var p21 = p10.multiply((u4 - t1) / (u4 - u1)).add(p20.multiply((t1 - u1) / (u4 - u1)));
+        var p31 = p20.multiply((u5 - t1) / (u5 - u2)).add(p30.multiply((t1 - u2) / (u5 - u2)));
+        var p41 = p30.multiply((u6 - t1) / (u6 - u3)).add(p40.multiply((t1 - u3) / (u6 - u3)));
+
+        var p32 = p21.multiply((u4 - t2) / (u4 - u2)).add(p31.multiply((t2 - u2) / (u4 - u2)));
+        var p42 = p31.multiply((u5 - t2) / (u5 - u3)).add(p41.multiply((t2 - u3) / (u5 - u3)));
+
+        var p43 = p32.multiply((u4 - t3) / (u4 - u3)).add(p42.multiply((t3 - u3) / (u4 - u3)));
+
+        return p43;
+    }
+
     drawCurve = function (ctx, curve) {
         if (curve.nodes.length < 4) return;
 
@@ -100,7 +132,30 @@ var drawCurve, drawConstruction, drawBezierNodes;
     };
 
     drawBezierNodes = function (ctx, curve) {
-        // TODO: implement this
+        for (var i = 2; i < curve.knots.length - 3; i++) {
+
+            var t1 = curve.knots[i].val();
+            var t2 = curve.knots[i + 1].val();
+
+            if (curve.timeKnot.val() >= t1 && curve.timeKnot.val() <= curve.knots[i + 1].val()) {
+                var r1 = calcBezier(t1, t1, t1, curve);
+                var r2 = calcBezier(t1, t2, t1, curve);
+                var r3 = calcBezier(t1, t2, t2, curve);
+                var r4 = calcBezier(t2, t2, t2, curve);
+
+                setColors(ctx, 'cyan', 'cyan');
+                drawCircle(ctx, r1.x, r1.y, 1);
+                drawCircle(ctx, r2.x, r2.y, 1);
+                drawCircle(ctx, r3.x, r3.y, 1);
+                drawCircle(ctx, r4.x, r4.y, 1);
+
+                drawLine(ctx, r1.x, r1.y, r2.x, r2.y);
+                drawLine(ctx, r2.x, r2.y, r3.x, r3.y);
+                drawLine(ctx, r3.x, r3.y, r4.x, r4.y);
+
+                break;
+            }
+        }
     };
 
 
