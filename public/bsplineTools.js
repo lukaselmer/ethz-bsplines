@@ -9,6 +9,39 @@ var drawCurve, drawConstruction, drawBezierNodes;
 
 (function () {
 
+    function drawBspline(ctx, p10, p20, p30, p40, p21, p31, p41, p32, p42, p43) {
+        setColors(ctx, 'yellow', 'cyan');
+        drawCircle(ctx, p10.x, p10.y, 4);
+        drawCircle(ctx, p20.x, p20.y, 4);
+        drawCircle(ctx, p30.x, p30.y, 4);
+        drawCircle(ctx, p40.x, p40.y, 4);
+        drawLine(ctx, p10.x, p10.y, p20.x, p20.y);
+        drawLine(ctx, p20.x, p20.y, p30.x, p30.y);
+        drawLine(ctx, p30.x, p30.y, p40.x, p40.y);
+
+        setColors(ctx, 'red', 'orange');
+        drawCircle(ctx, p21.x, p21.y, 3);
+        drawCircle(ctx, p31.x, p31.y, 3);
+        drawCircle(ctx, p41.x, p41.y, 3);
+        drawLine(ctx, p21.x, p21.y, p31.x, p31.y);
+        drawLine(ctx, p31.x, p31.y, p41.x, p41.y);
+
+        setColors(ctx, 'violet', 'pink');
+        drawCircle(ctx, p32.x, p32.y, 2);
+        drawCircle(ctx, p42.x, p42.y, 2);
+        drawLine(ctx, p32.x, p32.y, p42.x, p42.y);
+
+        setColors(ctx, 'green', 'darkgreen');
+        drawCircle(ctx, p43.x, p43.y, 4);
+    }
+
+    /**
+     * Calculates the point on the line for the value t. If ctx is set, the construction is drawn.
+     * @param t
+     * @param curve
+     * @param ctx
+     * @returns The point on the curve
+     */
     function calcDrawBspline(t, curve, ctx) {
         var m = curve.knots.length;
         var k = 0;
@@ -39,31 +72,7 @@ var drawCurve, drawConstruction, drawBezierNodes;
 
             var p43 = p32.multiply((u4 - t) / (u4 - u3)).add(p42.multiply((t - u3) / (u4 - u3)));
 
-            if (ctx) {
-                setColors(ctx, 'yellow', 'cyan');
-                drawCircle(ctx, p10.x, p10.y, 4);
-                drawCircle(ctx, p20.x, p20.y, 4);
-                drawCircle(ctx, p30.x, p30.y, 4);
-                drawCircle(ctx, p40.x, p40.y, 4);
-                drawLine(ctx, p10.x, p10.y, p20.x, p20.y);
-                drawLine(ctx, p20.x, p20.y, p30.x, p30.y);
-                drawLine(ctx, p30.x, p30.y, p40.x, p40.y);
-
-                setColors(ctx, 'red', 'orange');
-                drawCircle(ctx, p21.x, p21.y, 3);
-                drawCircle(ctx, p31.x, p31.y, 3);
-                drawCircle(ctx, p41.x, p41.y, 3);
-                drawLine(ctx, p21.x, p21.y, p31.x, p31.y);
-                drawLine(ctx, p31.x, p31.y, p41.x, p41.y);
-
-                setColors(ctx, 'violet', 'pink');
-                drawCircle(ctx, p32.x, p32.y, 2);
-                drawCircle(ctx, p42.x, p42.y, 2);
-                drawLine(ctx, p32.x, p32.y, p42.x, p42.y);
-
-                setColors(ctx, 'green', 'darkgreen');
-                drawCircle(ctx, p43.x, p43.y, 4);
-            }
+            if (ctx) drawBspline(ctx, p10, p20, p30, p40, p21, p31, p41, p32, p42, p43);
 
             return p43;
         }
