@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8"/>
 
 	<script src="drawingTools.js"></script>
 	<script src="bsplineTools.js"></script>
@@ -9,7 +11,7 @@
 	<script src="canvasUI.js"></script>
 	<script src="rulerUI.js"></script>
 
-	<script type="text/javascript">
+	<script>
 
 	var domCanvas = null;
 	var ctxCanvas = null;
@@ -17,7 +19,7 @@
 	var ctxRuler = null;
 
 	var curve = null;
-	
+
 	function init() {
 		domCanvas = document.getElementById('mycanvas');
 		domRuler = document.getElementById('myruler');
@@ -26,35 +28,35 @@
 		if (domCanvas.getContext && domRuler.getContext) {
 			ctxCanvas = domCanvas.getContext('2d');
 			ctxRuler = domRuler.getContext('2d');
-			
+
 			domCanvas.onmousedown = cvMousePress;
 			domCanvas.onmousemove = cvMouseMove;
 			domCanvas.onmouseup = cvMouseRelease;
 			domCanvas.onmouseleave = cvMouseRelease;
-			
+
 			domRuler.onmousedown = rlMousePress;
 			domRuler.onmousemove = rlMouseMove;
 			domRuler.onmouseup = rlMouseRelease;
 			domRuler.onmouseleave = rlMouseRelease;
-			
+
 			resizeCanvas();
-			
+
 		} else {
 			alert('Your browser is not supported.');
 		}
-		
+
 		resetCurve();
 		draw();
 	}
-	
+
 	function resetCurve() {
 		curve = new Curve();
 	}
-	
+
 	function draw() {
         ctxCanvas.clearRect(0, 0, domCanvas.width, domCanvas.height);
 		curve.draw(ctxCanvas);
-				
+
         ctxRuler.clearRect(0, 0, domRuler.width, domRuler.height);
 
 		setColors(ctxRuler,'rgb(10,70,160)','white');
@@ -63,36 +65,36 @@
 		}
 		setColors(ctxRuler,'rgb(10,70,160)','rgb(10,70,160)');
 		curve.timeKnot.draw(ctxRuler);
-		
+
 		requestAnimFrame(function() {
           draw();
         });
 	}
-	
+
 	function resizeCanvas() {
 		ctxCanvas.canvas.width = window.innerWidth - 20;
 		ctxCanvas.canvas.height = window.innerHeight - 230;
-		
+
 		ctxRuler.canvas.width = window.innerWidth - 20;
 	}
-	
+
 	window.requestAnimFrame = (function(callback) {
         return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
         function(callback) {
           window.setTimeout(callback, 1000 / 60);
         };
     })();
-	
+
 	window.onresize = resizeCanvas;
-	
+
 	</script>
 
 </head>
 <body onload="init()" style="margin:10px;">
 	<canvas id="mycanvas" style="margin: 0; border: 1px solid black;"></canvas>
 	<div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none;">
-		<input type="checkbox" checked="true" onchange="showNodeConnections=this.checked;" id="cbox_nodes">Show spline nodes 
-		<input type="checkbox" onchange="showBezierNodes=this.checked;" id="cbox_bezier">Show Bézier nodes
+		<input type="checkbox" checked="true" onchange="showNodeConnections=this.checked;" id="cbox_nodes">Show spline nodes
+		<input type="checkbox" onchange="showBezierNodes=this.checked;" id="cbox_bezier">Show Bï¿½zier nodes
 		<input type="checkbox" onchange="showConstruction=this.checked;" id="cbox_construct">Show construction
 		<button onclick="resetCurve();">Clear Canvas</button>
 	</div>
