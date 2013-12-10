@@ -15,26 +15,26 @@ var drawCurve, drawConstruction, drawBezierNodes;
             if (knots[l].val() >= t) break;
             k++;
         }
-        var k1 = knots[k + 0].val();
-        var k2 = knots[k + 1].val();
-        var k3 = knots[k + 2].val();
-        var k4 = knots[k + 3].val();
-        var k5 = knots[k + 4].val();
-        var k6 = knots[k + 5].val();
+        var u1 = knots[k + 0].val();
+        var u2 = knots[k + 1].val();
+        var u3 = knots[k + 2].val();
+        var u4 = knots[k + 3].val();
+        var u5 = knots[k + 4].val();
+        var u6 = knots[k + 5].val();
 
-        var p1 = nodes[k + 0].pos();
-        var p2 = nodes[k + 1].pos();
-        var p3 = nodes[k + 2].pos();
-        var p4 = nodes[k + 3].pos();
+        var p10 = nodes[k + 0].pos();
+        var p20 = nodes[k + 1].pos();
+        var p30 = nodes[k + 2].pos();
+        var p40 = nodes[k + 3].pos();
 
-        var p23t = p1.multiply((k4 - t) / (k4 - k1)).add(p2.multiply((t - k1) / (k4 - k1)));
-        var p34t = p2.multiply((k5 - t) / (k5 - k2)).add(p3.multiply((t - k2) / (k5 - k2)));
-        var p45t = p3.multiply((k6 - t) / (k6 - k3)).add(p4.multiply((t - k3) / (k6 - k3)));
+        var p21 = p10.multiply((u4 - t) / (u4 - u1)).add(p20.multiply((t - u1) / (u4 - u1)));
+        var p31 = p20.multiply((u5 - t) / (u5 - u2)).add(p30.multiply((t - u2) / (u5 - u2)));
+        var p41 = p30.multiply((u6 - t) / (u6 - u3)).add(p40.multiply((t - u3) / (u6 - u3)));
 
-        var p3tt = p23t.multiply((k4 - t) / (k4 - k2)).add(p34t.multiply((t - k2) / (k4 - k2)));
-        var p4tt = p34t.multiply((k5 - t) / (k5 - k3)).add(p45t.multiply((t - k3) / (k5 - k3)));
+        var p32 = p21.multiply((u4 - t) / (u4 - u2)).add(p31.multiply((t - u2) / (u4 - u2)));
+        var p42 = p31.multiply((u5 - t) / (u5 - u3)).add(p41.multiply((t - u3) / (u5 - u3)));
 
-        return p3tt.multiply((k4 - t) / (k4 - k3)).add(p4tt.multiply((t - k3) / (k4 - k3)));
+        return p32.multiply((u4 - t) / (u4 - u3)).add(p42.multiply((t - u3) / (u4 - u3)));
     }
 
     drawCurve = function (ctx, curve) {
