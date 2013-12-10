@@ -45,7 +45,7 @@ Curve.prototype.draw = function (ctx) {
 
         }
 
-        // B�zier node construction
+        // Bézier node construction
         if (showBezierNodes) {
 
             // ...
