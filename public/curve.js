@@ -27,29 +27,19 @@ Curve.prototype.draw = function (ctx) {
     ctx.lineWidth = 2;
     setColors(ctx, 'black');
 
-    // TODO: Draw the curve
-    // you can use: drawLine(ctx, x1, y1, x2, y2);
+    drawCurve(ctx);
 
     ctx.lineWidth = 1;
 
     if (this.nodes.length >= 4) {
-        // TODO: Show how the curve is constructed
-        // you can use: drawLine(ctx, x1, y1, x2, y2);
-        // you can use: drawCircle(ctx, x, y, radius);
-
-
         // De Boor construction
         if (showConstruction) {
-
-            // ...
-
+            drawConstruction(ctx);
         }
 
         // Bézier node construction
         if (showBezierNodes) {
-
-            // ...
-
+            drawBezierNodes(ctx);
         }
     }
 }

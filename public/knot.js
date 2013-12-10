@@ -6,7 +6,7 @@ var Knot = function (_value, _id, _isTimeKnot) {
     this.value = _value;
 };
 
-var KNOTRADIUS = 5;
+var KNOTRADIUS = 4;
 
 Knot.prototype.draw = function (ctx) {
     var pos = timeToRuler(this.value, this.isTimeKnot);
