@@ -34,7 +34,8 @@ var drawCurve, drawConstruction, drawBezierNodes;
         var p32 = p21.multiply((u4 - t) / (u4 - u2)).add(p31.multiply((t - u2) / (u4 - u2)));
         var p42 = p31.multiply((u5 - t) / (u5 - u3)).add(p41.multiply((t - u3) / (u5 - u3)));
 
-        return p32.multiply((u4 - t) / (u4 - u3)).add(p42.multiply((t - u3) / (u4 - u3)));
+        var p43 = p32.multiply((u4 - t) / (u4 - u3)).add(p42.multiply((t - u3) / (u4 - u3)));
+        return  p43;
     }
 
     drawCurve = function (ctx, curve) {
@@ -90,7 +91,7 @@ var drawCurve, drawConstruction, drawBezierNodes;
 
             var p21 = p10.multiply((u4 - t) / (u4 - u1)).add(p20.multiply((t - u1) / (u4 - u1)));
             var p31 = p20.multiply((u5 - t) / (u5 - u2)).add(p30.multiply((t - u2) / (u5 - u2)));
-            var p41 = p30.multiply((u6 - t) / (u6 - u3)).add(p20.multiply((t - u3) / (u6 - u3)));
+            var p41 = p30.multiply((u6 - t) / (u6 - u3)).add(p40.multiply((t - u3) / (u6 - u3)));
 
             setColors(ctx, 'red', 'orange');
             drawCircle(ctx, p21.x, p21.y, 3);
@@ -101,6 +102,7 @@ var drawCurve, drawConstruction, drawBezierNodes;
 
             var p32 = p21.multiply((u4 - t) / (u4 - u2)).add(p31.multiply((t - u2) / (u4 - u2)));
             var p42 = p31.multiply((u5 - t) / (u5 - u3)).add(p41.multiply((t - u3) / (u5 - u3)));
+
             setColors(ctx, 'violet', 'pink');
             drawCircle(ctx, p32.x, p32.y, 2);
             drawCircle(ctx, p42.x, p42.y, 2);
