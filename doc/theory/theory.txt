@@ -1,0 +1,9 @@
+﻿Exercise 5
+==========
+
+Sources:
+http://mathworld.wolfram.com/BezierCurve.html
+http://mathworld.wolfram.com/B-Spline.html
+https://en.wikipedia.org/wiki/B-spline
+https://bsplines-eth.renuo.ch/
+http://www.idav.ucdavis.edu/education/CAGDNotes/Bernstein-Polynomials.pdf
