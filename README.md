@@ -1,5 +1,6 @@
-Ethz-bsplines
-=============
+# Ethz-bsplines
+
+Live demo: https://bsplines.elmermx.ch
 
 BSpline editor is implemented with all requested functionality:
 
